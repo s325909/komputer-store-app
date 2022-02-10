@@ -1,0 +1,32 @@
+h1 {
+    text-align: center;
+}
+
+.areaContainer {
+    display: flex;
+    height: 50vh;
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+}
+
+#bankArea {
+    border: solid;
+    margin: 25px;
+    padding: 25px;
+    width: 25%;
+}
+
+#workArea {
+    border: solid;
+    margin: 25px;
+    padding: 25px;
+    width: 25%;
+}
+
+#laptopsArea {
+    border: solid;
+    margin: 25px;
+    padding: 25px;
+    width: 25%;
+}
