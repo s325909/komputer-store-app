@@ -6,6 +6,8 @@ const bankPayBtnElement = document.querySelector('#bankPayBtn')
 const workBankBtnElement = document.querySelector('#workBankBtn')
 const workLaborBtnElement = document.querySelector('#workLaborBtn')
 
+const laptopSelectElement = document.querySelector('#laptopSelect')
+
 const balanceNOK = " Kr."
 
 workLaborBtnElement.addEventListener('click', e => {
