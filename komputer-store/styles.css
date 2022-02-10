@@ -1,6 +1,6 @@
 h1, h2 { text-align: center; }
 
-p { font-size: larger; padding: 5%; text-align: left; }
+p { font-size: larger; text-align: left; }
 
 ul { font-size: larger; }
 li { padding: 5px; list-style-type: circle; }
@@ -8,9 +8,10 @@ li { padding: 5px; list-style-type: circle; }
 button { font-size: larger; padding: 4%; width: 125px; }
 select { padding: 3%; width: 100%; }
 
-.mainSection {
+.mainSection, .laptopsSection {
     display: flex;
     height: auto;
+    overflow: hidden!important;
     margin: auto;
     justify-content: center;
 }
@@ -35,6 +36,27 @@ select { padding: 3%; width: 100%; }
     padding: 25px;
     width: 33%;
 }
+
+#laptopInfoArea {
+    border: solid;
+    display: flex;
+    margin: 25px;
+    padding: 25px;
+    width: 100%;
+}
+
+#buyLaptopArea {
+    padding-left: 50%;
+}
+
+#laptopImg {
+    height: 100px;
+    width: 200px;
+    padding: 2px;
+    padding-right: 28px;
+}
+
+#laptopName { text-align: left; }
 
 #bankBalance, #workBalance { float: right;}
 
