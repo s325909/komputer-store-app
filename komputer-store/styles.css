@@ -1,32 +1,55 @@
-h1 {
-    text-align: center;
-}
+h1, h2 { text-align: center; }
+
+p { font-size: larger; padding: 5%; text-align: left; }
+
+button { font-size: larger; padding: 4%; width: 125px; }
 
 .areaContainer {
     display: flex;
     height: 50vh;
     margin: auto;
     justify-content: center;
-    text-align: center;
 }
 
 #bankArea {
     border: solid;
     margin: 25px;
     padding: 25px;
-    width: 25%;
+    width: 33%;
 }
 
 #workArea {
     border: solid;
     margin: 25px;
     padding: 25px;
-    width: 25%;
+    width: 33%;
 }
 
 #laptopsArea {
     border: solid;
     margin: 25px;
     padding: 25px;
-    width: 25%;
+    width: 33%;
+}
+
+#bankBalance, #workBalance { float: right;}
+
+#bankLoanBtn { 
+    float: left; 
+    background-color: orange;
+}
+
+#bankPayBtn { 
+    float: right; 
+    background-color: yellowgreen;
+}
+
+#workBankBtn { 
+    float: left; 
+    background-color: goldenrod;
+}
+
+#workBtn { 
+    float: right; 
+    background-color: royalblue;
 }
