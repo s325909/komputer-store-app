@@ -19,5 +19,6 @@ workBankBtnElement.addEventListener('click', e => {
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
     const salaryBalance = Number.parseInt(workBalanceElement.innerHTML);
     bankBalanceElement.innerHTML = bankBalance + salaryBalance + balanceNOK;
+    workBalanceElement.innerHTML = 0 + balanceNOK;
 });
 
