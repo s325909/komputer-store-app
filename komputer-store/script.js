@@ -101,6 +101,8 @@ function addLaptopSelectOptions() {
 }
 
 function displayLaptop(laptop) {
+    laptopImgElement.src = `${baseURL}/${laptop.image}`;
+
     laptopTitleElement.innerHTML = laptop.title;
     laptopDescriptionElement.innerHTML = laptop.description;
     laptopPriceElement.innerHTML = laptop.price + balanceNOK;
