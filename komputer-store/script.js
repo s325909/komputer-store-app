@@ -1,12 +1,18 @@
-const bankBalanceElement = document.querySelector('#bankBalance')
-const workBalanceElement = document.querySelector('#workBalance')
+const bankBalanceElement = document.querySelector('#bankBalance');
+const workBalanceElement = document.querySelector('#workBalance');
 
-const bankLoanBtnElement = document.querySelector('#bankLoanBtn')
-const bankPayBtnElement = document.querySelector('#bankPayBtn')
-const workBankBtnElement = document.querySelector('#workBankBtn')
-const workLaborBtnElement = document.querySelector('#workLaborBtn')
+const bankLoanBtnElement = document.querySelector('#bankLoanBtn');
+const bankPayBtnElement = document.querySelector('#bankPayBtn');
+const workBankBtnElement = document.querySelector('#workBankBtn');
+const workLaborBtnElement = document.querySelector('#workLaborBtn');
 
-const laptopSelectElement = document.querySelector('#laptopSelect')
+const laptopSelectElement = document.querySelector('#laptopSelect');
+
+const laptopImgElement = document.querySelector('#laptopImg');
+const laptopTitleElement = document.querySelector('#laptopTitle');
+const laptopDescriptionElement = document.querySelector('#laptopDescription');
+const laptopFeaturesElement = document.querySelector('#laptopFeatures');
+const laptopPriceElement = document.querySelector('#laptopPrice');
 
 const baseURL = "https://noroff-komputer-store-api.herokuapp.com";
 const balanceNOK = " Kr.";
@@ -18,13 +24,14 @@ let displayLaptops;
     try {
         const response = await fetch(`${baseURL}/computers`);
         const laptopsJson = await response.json();
-        displayLaptops = [...laptopsJson]
+        displayLaptops = [...laptopsJson];
     }
     catch(error) {
         console.log(error.message);
     }
 
     addLaptopSelectOptions();
+    displayLaptop(displayLaptops[0]);
 })();
 
 workLaborBtnElement.addEventListener('click', e => {
@@ -49,7 +56,7 @@ bankLoanBtnElement.addEventListener('click', e => {
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
 
     if (loanAmount > bankBalance * 2) {
-        alert("Rejected! You cannot get a loan more than double of your bank balance!")
+        alert("Rejected! You cannot get a loan more than double of your bank balance!");
         return;
     }
 
@@ -61,7 +68,7 @@ bankLoanBtnElement.addEventListener('click', e => {
 
 bankPayBtnElement.addEventListener('click', e => {
     if (!hasLoan) {
-        alert("You don't have a loan to pay back...")
+        alert("You don't have a loan to pay back...");
         return;
     }
 
@@ -69,7 +76,7 @@ bankPayBtnElement.addEventListener('click', e => {
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
 
     if (loanAmount > bankBalance * 2) {
-        alert("Rejected! You cannot get a loan more than double of your bank balance!")
+        alert("Rejected! You cannot get a loan more than double of your bank balance!");
         return;
     }
 
@@ -80,20 +87,26 @@ bankPayBtnElement.addEventListener('click', e => {
 });
 
 laptopSelectElement.addEventListener('change', e => {
-    const laptopTitle = e.target.value;
-    const laptop = laptops.find(laptop => laptop.title === laptop.title);
+    const laptop = displayLaptops.find(laptop => laptop.title === e.target.value);
+    displayLaptop(laptop);
 });
 
 function addLaptopSelectOptions() {
     for (const laptop of displayLaptops) {
-        const laptopOption = document.createElement('option')
+        const laptopOption = document.createElement('option');
         console.log(laptop.title);
         laptopOption.text = laptop.title;
         laptopSelectElement.append(laptopOption);
     }
 }
 
-function displayLaptop() {
+function displayLaptop(laptop) {
+    laptopTitleElement.innerHTML = laptop.title;
+    laptopDescriptionElement.innerHTML = laptop.description;
+    laptopPriceElement.innerHTML = laptop.price + balanceNOK;
 
+    laptopFeaturesElement.innerHTML = "";
+    for (const spec of laptop.specs) {
+        laptopFeaturesElement.innerHTML += `<li>${spec}</li>`;
+    }
 }
-
