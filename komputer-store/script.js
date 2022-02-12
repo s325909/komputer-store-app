@@ -8,25 +8,23 @@ const workLaborBtnElement = document.querySelector('#workLaborBtn')
 
 const laptopSelectElement = document.querySelector('#laptopSelect')
 
-let laptops;
-let boughtLaptops;
-let hasLoan = false;
+const baseURL = "https://noroff-komputer-store-api.herokuapp.com";
 const balanceNOK = " Kr.";
+let hasLoan = false;
+let boughtLaptops;
+let displayLaptops;
 
 (async function() {
-    const URL = "https://noroff-komputer-store-api.herokuapp.com/computers";;
-
-
     try {
-        const response = await fetch(URL);
+        const response = await fetch(`${baseURL}/computers`);
         const laptopsJson = await response.json();
-
-        addLaptopSelectOptions(laptopsJson);
-        
+        displayLaptops = [...laptopsJson]
     }
     catch(error) {
         console.log(error.message);
     }
+
+    addLaptopSelectOptions();
 })();
 
 workLaborBtnElement.addEventListener('click', e => {
@@ -81,12 +79,21 @@ bankPayBtnElement.addEventListener('click', e => {
     hasLoan = true;
 });
 
-function addLaptopSelectOptions(laptopsJson) {
-    for (const laptop of laptopsJson) {
+laptopSelectElement.addEventListener('change', e => {
+    const laptopTitle = e.target.value;
+    const laptop = laptops.find(laptop => laptop.title === laptop.title);
+});
+
+function addLaptopSelectOptions() {
+    for (const laptop of displayLaptops) {
         const laptopOption = document.createElement('option')
         console.log(laptop.title);
         laptopOption.text = laptop.title;
         laptopSelectElement.append(laptopOption);
     }
+}
+
+function displayLaptop() {
+
 }
 
