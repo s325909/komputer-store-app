@@ -8,8 +8,22 @@ const workLaborBtnElement = document.querySelector('#workLaborBtn')
 
 const laptopSelectElement = document.querySelector('#laptopSelect')
 
-const balanceNOK = " Kr."
+let laptops;
+let boughtLaptops;
 let hasLoan = false;
+const balanceNOK = " Kr."
+
+/** 
+ 
+(async () => {
+    const URL = "https://noroff-komputer-store-api.herokuapp.com/computers";
+    
+    // laptops = await fetchLaptops(URL);
+
+    // selectLaptopElements();
+})();
+
+**/
 
 workLaborBtnElement.addEventListener('click', e => {
     const prevBalance = Number.parseInt(workBalanceElement.innerHTML);
@@ -41,4 +55,51 @@ bankLoanBtnElement.addEventListener('click', e => {
 
     bankBalanceElement.innerHTML = bankBalance + loanAmount + balanceNOK;
     hasLoan = true;
-})
+});
+
+bankPayBtnElement.addEventListener('click', e => {
+    if (!hasLoan) {
+        alert("You don't have a loan to pay back...")
+        return;
+    }
+
+    const loanAmount = Number(window.prompt("Enter an amount: ", ""));
+    const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
+
+    if (loanAmount > bankBalance * 2) {
+        alert("Rejected! You cannot get a loan more than double of your bank balance!")
+        return;
+    }
+
+    // const eligible = checkLoanRequirements(loanAmount, bankBalance)
+
+    bankBalanceElement.innerHTML = loanAmount - bankBalance + balanceNOK;
+    hasLoan = true;
+});
+
+(async function() {
+    const URL = "https://noroff-komputer-store-api.herokuapp.com/computers";;
+
+
+    try {
+        const response = await fetch(URL);
+        const laptopsJson = await response.json();
+
+        addLaptopSelectOptions(laptopsJson);
+        
+    }
+    catch(error) {
+        console.log(error.message);
+    }
+
+})();
+
+function addLaptopSelectOptions(laptopsJson) {
+    for (const laptop of laptopsJson) {
+        const laptopOption = document.createElement('option')
+        console.log(laptop.title);
+        laptopOption.text = laptop.title;
+        laptopSelectElement.append(laptopOption);
+    }
+}
+
