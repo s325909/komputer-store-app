@@ -25,11 +25,9 @@ let displayLaptops;
         const response = await fetch(`${baseURL}/computers`);
         const laptopsJson = await response.json();
         displayLaptops = [...laptopsJson];
-    }
-    catch(error) {
+    }catch(error) {
         console.log(error.message);
     }
-
     addLaptopSelectOptions();
     displayLaptop(displayLaptops[0]);
 })();
