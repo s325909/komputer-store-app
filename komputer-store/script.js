@@ -88,22 +88,23 @@ bankPayBtnElement.addEventListener('click', e => {
 buyLaptopBtnElement.addEventListener('click', e => {
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
     const laptopPrice = Number.parseInt(laptopPriceElement.innerHTML);
+    const laptopTitle = laptopTitleElement.innerHTML;
 
-    if (bankBalance < laptopPrice) {
-        return alert("You cannot afford the laptop!");
-    }
+    if (bankBalance < laptopPrice) return alert("You cannot afford a " + laptopTitle);
 
     bankBalanceElement.innerHTML = bankBalance - laptopPrice;
 
+    boughtLaptops.push(laptopTitle);
 
-    boughtLaptops.push(laptopTitleElement.innerHTML);
-    
-    return alert("You are now the owner of the new " + laptopTitleElement.innerHTML);
+    disableBoughtLaptopBtn(laptopTitle);
+
+    return alert("You are now the owner of the new " + laptopTitle);
 });
 
 laptopSelectElement.addEventListener('change', e => {
     const laptop = displayLaptops.find(laptop => laptop.title === e.target.value);
     displayLaptop(laptop);
+    disableBoughtLaptopBtn(laptop.title);
 });
 
 function addLaptopSelectOptions() {
@@ -126,4 +127,10 @@ function displayLaptop(laptop) {
     for (const spec of laptop.specs) {
         laptopFeaturesElement.innerHTML += `<li>${spec}</li>`;
     }
+}
+
+function disableBoughtLaptopBtn(laptopTitle) {
+    const inStock = buyLaptopBtnElement;
+    // disable buyLaptopBtn if laptop already bought, or else enable if not bought
+    boughtLaptops.includes(laptopTitle) ? inStock.disabled = true : inStock.disabled = false;
 }
