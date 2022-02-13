@@ -5,6 +5,7 @@ const bankLoanBtnElement = document.querySelector('#bankLoanBtn');
 const bankPayBtnElement = document.querySelector('#bankPayBtn');
 const workBankBtnElement = document.querySelector('#workBankBtn');
 const workLaborBtnElement = document.querySelector('#workLaborBtn');
+const buyLaptopBtnElement = document.querySelector('#buyLaptopBtn');
 
 const laptopSelectElement = document.querySelector('#laptopSelect');
 
@@ -17,7 +18,7 @@ const laptopPriceElement = document.querySelector('#laptopPrice');
 const baseURL = "https://noroff-komputer-store-api.herokuapp.com";
 const balanceNOK = " Kr.";
 let hasLoan = false;
-let boughtLaptops;
+let boughtLaptops = [];
 let displayLaptops;
 
 (async function() {
@@ -25,7 +26,7 @@ let displayLaptops;
         const response = await fetch(`${baseURL}/computers`);
         const laptopsJson = await response.json();
         displayLaptops = [...laptopsJson];
-    }catch(error) {
+    } catch(error) {
         console.log(error.message);
     }
     addLaptopSelectOptions();
@@ -46,7 +47,7 @@ workBankBtnElement.addEventListener('click', e => {
 
 bankLoanBtnElement.addEventListener('click', e => {
     if (hasLoan) {
-        alert("Reject! You may not have two loans at once. The initial loan should be paid back in full.")
+        alert("Rejected! You may not have two loans at once. The initial loan should be paid back in full.")
         return;
     }
 
@@ -82,6 +83,22 @@ bankPayBtnElement.addEventListener('click', e => {
 
     bankBalanceElement.innerHTML = loanAmount - bankBalance + balanceNOK;
     hasLoan = true;
+});
+
+buyLaptopBtnElement.addEventListener('click', e => {
+    const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
+    const laptopPrice = Number.parseInt(laptopPriceElement.innerHTML);
+
+    if (bankBalance < laptopPrice) {
+        return alert("You cannot afford the laptop!");
+    }
+
+    bankBalanceElement.innerHTML = bankBalance - laptopPrice;
+
+
+    boughtLaptops.push(laptopTitleElement.innerHTML);
+    
+    return alert("You are now the owner of the new " + laptopTitleElement.innerHTML);
 });
 
 laptopSelectElement.addEventListener('change', e => {
