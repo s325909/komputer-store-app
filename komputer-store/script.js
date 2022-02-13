@@ -1,5 +1,7 @@
 const bankBalanceElement = document.querySelector('#bankBalance');
+const loanBalanceElement = document.querySelector('#loanBalance');
 const workBalanceElement = document.querySelector('#workBalance');
+const bankLoanElement = document.querySelector('#bankLoan');
 
 const bankLoanBtnElement = document.querySelector('#bankLoanBtn');
 const bankPayBtnElement = document.querySelector('#bankPayBtn');
@@ -17,7 +19,7 @@ const laptopPriceElement = document.querySelector('#laptopPrice');
 
 const baseURL = "https://noroff-komputer-store-api.herokuapp.com";
 const balanceNOK = " Kr.";
-let hasLoan = false;
+let hasBankLoan = false;
 let boughtLaptops = [];
 let displayLaptops;
 
@@ -40,14 +42,16 @@ workLaborBtnElement.addEventListener('click', e => {
 
 workBankBtnElement.addEventListener('click', e => {
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
+    const loanBalance = Number.parseInt(bankBalanceElement.innerHTML);
     const salaryBalance = Number.parseInt(workBalanceElement.innerHTML);
+
     bankBalanceElement.innerHTML = bankBalance + salaryBalance + balanceNOK;
     workBalanceElement.innerHTML = 0 + balanceNOK;
 });
 
 bankLoanBtnElement.addEventListener('click', e => {
-    if (hasLoan) {
-        alert("Rejected! You may not have two loans at once. The initial loan should be paid back in full.")
+    if (hasBankLoan) {
+        alert("You may not have two loans at once! The initial loan should be paid back in full.")
         return;
     }
 
@@ -55,34 +59,45 @@ bankLoanBtnElement.addEventListener('click', e => {
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
 
     if (loanAmount > bankBalance * 2) {
-        alert("Rejected! You cannot get a loan more than double of your bank balance!");
+        alert("You cannot get a loan more than double of your bank balance!");
         return;
     }
 
     // const eligible = checkLoanRequirements(loanAmount, bankBalance)
 
     bankBalanceElement.innerHTML = bankBalance + loanAmount + balanceNOK;
-    hasLoan = true;
+
+    loanBalanceElement.innerHTML = loanAmount + balanceNOK;
+    hasBankLoan = true;
+
+    enableBankLoanBalance();
+    enableRepayLoanBtn();
 });
 
 bankPayBtnElement.addEventListener('click', e => {
-    if (!hasLoan) {
+    if (!hasBankLoan) {
         alert("You don't have a loan to pay back...");
         return;
     }
 
-    const loanAmount = Number(window.prompt("Enter an amount: ", ""));
-    const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
+    repayBankLoan();
 
-    if (loanAmount > bankBalance * 2) {
-        alert("Rejected! You cannot get a loan more than double of your bank balance!");
-        return;
-    }
+    // const loanAmount = Number(window.prompt("Enter an amount: ", ""));
+    // const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
+
+
 
     // const eligible = checkLoanRequirements(loanAmount, bankBalance)
 
-    bankBalanceElement.innerHTML = loanAmount - bankBalance + balanceNOK;
-    hasLoan = true;
+   // bankBalanceElement.innerHTML = bankBalance - loanAmount + balanceNOK;
+    
+    
+   // hasLoan = true;
+
+   // hasBankLoan = false;
+
+   // enableRepayLoanBtn();
+
 });
 
 buyLaptopBtnElement.addEventListener('click', e => {
@@ -133,4 +148,35 @@ function disableBoughtLaptopBtn(laptopTitle) {
     const inStock = buyLaptopBtnElement;
     // disable buyLaptopBtn if laptop already bought, or else enable if not bought
     boughtLaptops.includes(laptopTitle) ? inStock.disabled = true : inStock.disabled = false;
+}
+
+function enableBankLoanBalance() {
+    hasBankLoan ? bankLoanElement.innerHTML = "Bank Loan: " : bankLoanElement.innerHTML = " ";
+}
+
+function enableRepayLoanBtn() {
+    hasBankLoan ? bankPayBtnElement.style.display = "block" : bankPayBtnElement.style.display = "none";
+}
+
+function repayBankLoan() {
+    const payBalance = Number.parseInt(workBalanceElement.innerHTML);
+    const loanBalance = Number.parseInt(loanBalanceElement.innerHTML);
+    const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
+
+    workBalanceElement.innerHTML = 0 + balanceNOK;
+
+    loanBalanceElement.innerHTML = loanBalance - payBalance + balanceNOK;
+
+    bankBalanceElement.innerHTML = bankBalance - payBalance + balanceNOK;
+
+    if (payBalance > loanBalance) {
+        const restLoanPayment = payBalance - loanBalance;
+
+        bankBalanceElement.innerHTML = bankBalance + restLoanPayment + balanceNOK;
+
+        hasBankLoan = false;
+        loanBalanceElement.innerHTML = "";
+        enableBankLoanBalance();
+        enableRepayLoanBtn();
+    } 
 }

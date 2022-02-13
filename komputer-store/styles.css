@@ -5,7 +5,7 @@ p { font-size: larger; text-align: left; }
 ul { font-size: larger; }
 li { padding: 5px; list-style-type: circle; }
 
-button { font-size: larger; padding: 4%; width: 125px; }
+button { font-size: larger; margin-top: 25px; padding: 4%; width: 125px; }
 select { padding: 3%; width: 100%; }
 
 .mainSection, .laptopsSection {
@@ -58,24 +58,25 @@ select { padding: 3%; width: 100%; }
 
 #laptopName { text-align: left; }
 
-#bankBalance, #workBalance { float: right;}
+#bankBalance, #loanBalance, #workBalance { float: right;}
 
 #bankLoanBtn { 
+    background-color: greenyellow;
     float: left; 
-    background-color: orange;
 }
 
 #bankPayBtn { 
-    float: right; 
     background-color: yellowgreen;
+    display: none;
+    float: left; 
 }
 
 #workBankBtn { 
+    background-color: yellow;
     float: left; 
-    background-color: goldenrod;
 }
 
 #workLaborBtn { 
-    float: right; 
     background-color: royalblue;
+    float: right; 
 }
