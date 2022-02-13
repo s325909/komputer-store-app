@@ -63,8 +63,6 @@ bankLoanBtnElement.addEventListener('click', e => {
         return;
     }
 
-    // const eligible = checkLoanRequirements(loanAmount, bankBalance)
-
     bankBalanceElement.innerHTML = bankBalance + loanAmount + balanceNOK;
 
     loanBalanceElement.innerHTML = loanAmount + balanceNOK;
@@ -79,25 +77,7 @@ bankPayBtnElement.addEventListener('click', e => {
         alert("You don't have a loan to pay back...");
         return;
     }
-
     repayBankLoan();
-
-    // const loanAmount = Number(window.prompt("Enter an amount: ", ""));
-    // const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
-
-
-
-    // const eligible = checkLoanRequirements(loanAmount, bankBalance)
-
-   // bankBalanceElement.innerHTML = bankBalance - loanAmount + balanceNOK;
-    
-    
-   // hasLoan = true;
-
-   // hasBankLoan = false;
-
-   // enableRepayLoanBtn();
-
 });
 
 buyLaptopBtnElement.addEventListener('click', e => {
