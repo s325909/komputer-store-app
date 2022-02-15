@@ -1,3 +1,4 @@
+// DOM variables 
 const bankBalanceElement = document.querySelector('#bankBalance');
 const loanBalanceElement = document.querySelector('#loanBalance');
 const workBalanceElement = document.querySelector('#workBalance');
@@ -17,23 +18,29 @@ const laptopDescriptionElement = document.querySelector('#laptopDescription');
 const laptopFeaturesElement = document.querySelector('#laptopFeatures');
 const laptopPriceElement = document.querySelector('#laptopPrice');
 
+// Global variables
 const baseURL = "https://noroff-komputer-store-api.herokuapp.com";
 const balanceNOK = " Kr.";
 let hasBankLoan = false;
 let boughtLaptops = [];
 let displayLaptops;
 
+// Init async function to fetch computers from API
 (async function() {
     try {
         const response = await fetch(`${baseURL}/computers`);
         const laptopsJson = await response.json();
+        // Add computers to global variable
         displayLaptops = [...laptopsJson];
     } catch(error) {
         console.log(error.message);
     }
+    // Populate select dropdown and display the initial computer
     addLaptopSelectOptions();
-    displayLaptop(displayLaptops[0]);
+    displayStoreLaptop(displayLaptops[0]);
 })();
+
+// Adding Event Listeners to buttons
 
 workLaborBtnElement.addEventListener('click', e => {
     const prevBalance = Number.parseInt(workBalanceElement.innerHTML);
@@ -107,9 +114,11 @@ buyLaptopBtnElement.addEventListener('click', e => {
 
 laptopSelectElement.addEventListener('change', e => {
     const laptop = displayLaptops.find(laptop => laptop.title === e.target.value);
-    displayLaptop(laptop);
+    displayStoreLaptop(laptop);
     disableBoughtLaptopBtn(laptop.title);
 });
+
+// Functions
 
 function addLaptopSelectOptions() {
     for (const laptop of displayLaptops) {
@@ -120,7 +129,7 @@ function addLaptopSelectOptions() {
     }
 }
 
-function displayLaptop(laptop) {
+function displayStoreLaptop(laptop) {
     laptopImgElement.src = `${baseURL}/${laptop.image}`;
 
     laptopTitleElement.innerHTML = laptop.title;
