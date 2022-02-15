@@ -103,7 +103,7 @@ buyLaptopBtnElement.addEventListener('click', e => {
 
     if (bankBalance < laptopPrice) return alert("You cannot afford a " + laptopTitle);
 
-    bankBalanceElement.innerHTML = bankBalance - laptopPrice;
+    bankBalanceElement.innerHTML = bankBalance - laptopPrice + balanceNOK;
 
     boughtLaptops.push(laptopTitle);
 
@@ -161,22 +161,24 @@ function enableRepayLoanBtn() {
 function repayBankLoan(payAmount) {
     const loanBalance = Number.parseInt(loanBalanceElement.innerHTML);
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
-
-    workBalanceElement.innerHTML = 0 + balanceNOK;
-
-    loanBalanceElement.innerHTML = loanBalance - payAmount + balanceNOK;
-
-    bankBalanceElement.innerHTML = bankBalance - payAmount + balanceNOK;
-
+    
+    // checks if payAmount is greater than the loanBalance
     restBankLoanSettlement(payAmount, loanBalance);
+
+    if (hasBankLoan) {     
+        workBalanceElement.innerHTML = 0 + balanceNOK;
+        loanBalanceElement.innerHTML = loanBalance - payAmount + balanceNOK;
+        bankBalanceElement.innerHTML = bankBalance - payAmount + balanceNOK;
+    }
 }
 
 function restBankLoanSettlement(payAmount, loanBalance) {
     if (payAmount > loanBalance) {
         const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
+        const deductedBankBalance = bankBalance - loanBalance;
         const restLoanPayment = payAmount - loanBalance;
 
-        bankBalanceElement.innerHTML = bankBalance + restLoanPayment + balanceNOK;
+        bankBalanceElement.innerHTML = deductedBankBalance + restLoanPayment + balanceNOK;
 
         hasBankLoan = false;
         loanBalanceElement.innerHTML = "";
