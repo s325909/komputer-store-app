@@ -73,16 +73,20 @@ bankLoanBtnElement.addEventListener('click', e => {
     const loanAmount = Number(window.prompt("Enter an amount: ", ""));
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
 
+    if (loanAmount < 100) {
+        alert("You cannot get a loan less than 100 Kr.!")
+        return;
+    }
+
     if (loanAmount > bankBalance * 2) {
         alert("You cannot get a loan more than double of your bank balance!");
         return;
     }
 
     bankBalanceElement.innerHTML = bankBalance + loanAmount + balanceNOK;
-
     loanBalanceElement.innerHTML = loanAmount + balanceNOK;
-    hasBankLoan = true;
 
+    hasBankLoan = true;
     enableBankLoanBalance();
     enableRepayLoanBtn();
 });
@@ -148,16 +152,6 @@ function disableBoughtLaptopBtn(laptopTitle) {
     boughtLaptops.includes(laptopTitle) ? inStock.disabled = true : inStock.disabled = false;
 }
 
-function enableBankLoanBalance() {
-    // Bank Loan string if has loan, or else empty string
-    hasBankLoan ? bankLoanElement.innerHTML = "Bank Loan: " : bankLoanElement.innerHTML = " ";
-}
-
-function enableRepayLoanBtn() {
-    // show Pay loan btn if has loan, or else no button displayed
-    hasBankLoan ? bankPayBtnElement.style.display = "block" : bankPayBtnElement.style.display = "none";
-}
-
 function repayBankLoan(payAmount) {
     const loanBalance = Number.parseInt(loanBalanceElement.innerHTML);
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
@@ -185,4 +179,14 @@ function restBankLoanSettlement(payAmount, loanBalance) {
         enableBankLoanBalance();
         enableRepayLoanBtn();
     } 
+}
+
+function enableBankLoanBalance() {
+    // Bank Loan string if has loan, or else empty string
+    hasBankLoan ? bankLoanElement.innerHTML = "Bank Loan: " : bankLoanElement.innerHTML = " ";
+}
+
+function enableRepayLoanBtn() {
+    // show Pay loan btn if has loan, or else no button displayed
+    hasBankLoan ? bankPayBtnElement.style.display = "block" : bankPayBtnElement.style.display = "none";
 }
