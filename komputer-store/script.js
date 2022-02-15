@@ -46,9 +46,10 @@ workBankBtnElement.addEventListener('click', e => {
     let salaryBalance = Number.parseInt(workBalanceElement.innerHTML);
 
     if (hasBankLoan) {
+        // payAmount set to 10% of salary to pay loan
         const payAmount = salaryBalance * 0.1;
-        console.log(payAmount);
         repayBankLoan(payAmount);
+        // bank remaining 90% of salary
         salaryBalance = salaryBalance * 0.9;
     }
 
@@ -139,18 +140,18 @@ function disableBoughtLaptopBtn(laptopTitle) {
 }
 
 function enableBankLoanBalance() {
+    // Bank Loan string if has loan, or else empty string
     hasBankLoan ? bankLoanElement.innerHTML = "Bank Loan: " : bankLoanElement.innerHTML = " ";
 }
 
 function enableRepayLoanBtn() {
+    // show Pay loan btn if has loan, or else no button displayed
     hasBankLoan ? bankPayBtnElement.style.display = "block" : bankPayBtnElement.style.display = "none";
 }
 
 function repayBankLoan(payAmount) {
     const loanBalance = Number.parseInt(loanBalanceElement.innerHTML);
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
-
-    console.log(bankBalance + " | " + payAmount + " - " + loanBalance);
 
     workBalanceElement.innerHTML = 0 + balanceNOK;
 
@@ -165,8 +166,6 @@ function restBankLoanSettlement(payAmount, loanBalance) {
     if (payAmount > loanBalance) {
         const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
         const restLoanPayment = payAmount - loanBalance;
-
-        console.log(restLoanPayment + " | " + payAmount + " - " + loanBalance);
 
         bankBalanceElement.innerHTML = bankBalance + restLoanPayment + balanceNOK;
 
