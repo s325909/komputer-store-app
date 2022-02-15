@@ -4,9 +4,73 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Komputer Store App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <h1>The Komputer Store</h1>
+
+    <section class="mainSection">
+        
+        <!--The Bank Area-->
+        <div id="bankArea">
+            <h2>Joe Banker</h2>
+            <p>
+                Bank Balance
+                <span id="bankBalance">200 Kr.</span>
+            </p>
+            <p>
+                <span id="bankLoan"> </span>
+                <span id="loanBalance"> </span>
+            </p>
+            <button id="bankLoanBtn">Get a Loan</button>
+        </div>
+
+
+        <!--Work Area-->
+        <div id="workArea">
+            <h2>Work</h2>
+            <p>
+                Pay: 
+                <span id="workBalance">0 Kr.</span>
+            </p>
+            <button id="workBankBtn">Bank</button>
+            <button id="workLaborBtn">Work</button>
+            <button id="bankPayBtn">Pay loan</button>
+        </div>
+        
+        <!--Laptops Area-->
+        <div id="laptopsArea">
+            <h2>Laptops</h2>
+            <select name="laptops" id="laptopSelect"></select>
+            <h3>Laptop Features:</h3>
+            <ul id="laptopFeatures">
+                <li>It has a screen</li>
+                <li>There's a keyboard</li>
+                <li>(some keys might be missing)</li>
+            </ul>
+        </div>
+
+    </section>
+
+    <section class="laptopsSection">
+        <div id="laptopInfoArea">
+            <img src="https://www.komplettbedrift.no/img/p/1079/1183128.jpg" alt="" id="laptopImg">
+            <div>
+                <h2 id="laptopTitle">Laptop amd super intel 10</h2>
+                <p id="laptopDescription">This laptop...</p>
+            </div>
+            <div id="buyLaptopArea">
+                <p id="laptopPrice" style="text-align: center;">
+                    1500 NOK
+                </p>
+                <button id="buyLaptopBtn">Buy now</button>
+            </div>
+        </div>
+    </section>
+    
+
+    
 </body>
 </html>

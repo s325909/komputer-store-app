@@ -1,0 +1,86 @@
+h1, h2 { text-align: center; }
+
+p { font-size: larger; text-align: left; }
+
+ul { font-size: larger; }
+li { padding: 5px; list-style-type: circle; }
+
+button { font-size: larger; margin-top: 5px; padding: 2%; width: 125px; }
+select { padding: 3%; width: 100%; }
+
+.mainSection, .laptopsSection {
+    display: inline-flex;
+    height: auto;
+    margin: auto;
+    width: 100%;
+    justify-content: center;
+}
+
+#bankArea {
+    border: solid;
+    margin: 25px;
+    padding: 25px;
+    width: 33%;
+}
+
+#workArea {
+    border: solid;
+    margin: 25px;
+    padding: 25px;
+    width: 33%;
+}
+
+#laptopsArea {
+    border: solid;
+    margin: 25px;
+    padding: 25px;
+    width: 33%;
+}
+
+#laptopInfoArea {
+    border: solid;
+    display: inline-flex;
+    margin: 25px;
+    padding: 25px;
+    width: 100%;
+}
+
+#buyLaptopArea {
+    padding-left: 75px;
+}
+
+#laptopImg {
+    height: 100px;
+    width: 200px;
+    padding: 2px;
+    padding-right: 28px;
+}
+
+#laptopName { text-align: left; }
+
+#bankBalance, #loanBalance, #workBalance { float: right;}
+
+#bankLoanBtn { 
+    background-color: greenyellow;
+    float: left; 
+}
+
+#bankPayBtn { 
+    background-color: yellowgreen;
+    display: none;
+    float: left; 
+}
+
+#workBankBtn { 
+    background-color: yellow;
+    float: left; 
+}
+
+#workLaborBtn { 
+    background-color: royalblue;
+    float: right; 
+}
+
+#buyLaptopBtn {
+    background-color: green;
+}
