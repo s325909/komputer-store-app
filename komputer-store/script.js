@@ -43,7 +43,14 @@ workLaborBtnElement.addEventListener('click', e => {
 workBankBtnElement.addEventListener('click', e => {
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
     const loanBalance = Number.parseInt(bankBalanceElement.innerHTML);
-    const salaryBalance = Number.parseInt(workBalanceElement.innerHTML);
+    let salaryBalance = Number.parseInt(workBalanceElement.innerHTML);
+
+    if (hasBankLoan) {
+        const payAmount = salaryBalance * 0.1;
+        console.log(payAmount);
+        repayBankLoan(payAmount);
+        salaryBalance = salaryBalance * 0.9;
+    }
 
     bankBalanceElement.innerHTML = bankBalance + salaryBalance + balanceNOK;
     workBalanceElement.innerHTML = 0 + balanceNOK;
@@ -77,7 +84,8 @@ bankPayBtnElement.addEventListener('click', e => {
         alert("You don't have a loan to pay back...");
         return;
     }
-    repayBankLoan();
+    const payBalance = Number.parseInt(workBalanceElement.innerHTML);
+    repayBankLoan(payBalance);
 });
 
 buyLaptopBtnElement.addEventListener('click', e => {
@@ -138,19 +146,27 @@ function enableRepayLoanBtn() {
     hasBankLoan ? bankPayBtnElement.style.display = "block" : bankPayBtnElement.style.display = "none";
 }
 
-function repayBankLoan() {
-    const payBalance = Number.parseInt(workBalanceElement.innerHTML);
+function repayBankLoan(payAmount) {
     const loanBalance = Number.parseInt(loanBalanceElement.innerHTML);
     const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
 
+    console.log(bankBalance + " | " + payAmount + " - " + loanBalance);
+
     workBalanceElement.innerHTML = 0 + balanceNOK;
 
-    loanBalanceElement.innerHTML = loanBalance - payBalance + balanceNOK;
+    loanBalanceElement.innerHTML = loanBalance - payAmount + balanceNOK;
 
-    bankBalanceElement.innerHTML = bankBalance - payBalance + balanceNOK;
+    bankBalanceElement.innerHTML = bankBalance - payAmount + balanceNOK;
 
-    if (payBalance > loanBalance) {
-        const restLoanPayment = payBalance - loanBalance;
+    restBankLoanSettlement(payAmount, loanBalance);
+}
+
+function restBankLoanSettlement(payAmount, loanBalance) {
+    if (payAmount > loanBalance) {
+        const bankBalance = Number.parseInt(bankBalanceElement.innerHTML);
+        const restLoanPayment = payAmount - loanBalance;
+
+        console.log(restLoanPayment + " | " + payAmount + " - " + loanBalance);
 
         bankBalanceElement.innerHTML = bankBalance + restLoanPayment + balanceNOK;
 

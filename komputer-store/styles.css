@@ -5,7 +5,7 @@ p { font-size: larger; text-align: left; }
 ul { font-size: larger; }
 li { padding: 5px; list-style-type: circle; }
 
-button { font-size: larger; margin-top: 25px; padding: 4%; width: 125px; }
+button { font-size: larger; margin-top: 5px; padding: 2%; width: 125px; }
 select { padding: 3%; width: 100%; }
 
 .mainSection, .laptopsSection {
@@ -46,7 +46,7 @@ select { padding: 3%; width: 100%; }
 }
 
 #buyLaptopArea {
-    padding-left: 50px;
+    padding-left: 75px;
 }
 
 #laptopImg {
@@ -79,4 +79,8 @@ select { padding: 3%; width: 100%; }
 #workLaborBtn { 
     background-color: royalblue;
     float: right; 
+}
+
+#buyLaptopBtn {
+    background-color: green;
 }
